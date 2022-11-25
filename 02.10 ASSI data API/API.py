@@ -5,9 +5,16 @@ payload = json.dumps({
     "collection": "bikes",
     "database": "BookingBike",
     "dataSource": "Sandbox",
-    "pipeline": [{
-    "$group":{"_id":"$Brand"}}]".pretty"
-})
+    "pipeline": [
+        {
+          "$group": {
+            "_id": "$Brand",
+            "count": { "$sum": 1 },
+          }
+        },
+        { "$sort": { "_id": 1 } }
+      ]
+  })
 headers = {
   'Content-Type': 'application/json',
   'Access-Control-Request-Headers': '*',
